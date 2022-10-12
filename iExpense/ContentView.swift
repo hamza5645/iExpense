@@ -8,19 +8,34 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var expenses = Expenses()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            List {
+                ForEach(expenses.items, id: \.name) { item in
+                    Text(item.name)
+                }
+                .onDelete(perform: removeItems)
+            }
+            .navigationTitle("IExpense")
+            .toolbar {
+                Button {
+                    let expense = ExpenseItem(name: "test", type: "Personal", amount: 20)
+                    expenses.items.append(expense)
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
         }
-        .padding()
     }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+    func removeItems(at offsets: IndexSet) {
+        expenses.items.remove(atOffsets: offsets)
+    }
+    
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+        }
     }
 }
