@@ -21,7 +21,7 @@ struct ContentView: View {
                                 .font(.headline)
                             Text(item.type)
                             
-                            Text(date.formatted(date: .long, time: .omitted))
+                            Text(item.date.formatted(date: .long, time: .omitted))
                         }
                         
                         Spacer()
