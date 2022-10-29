@@ -14,6 +14,7 @@ struct AddView: View {
     @State private var name = ""
     @State private var type = "Personal"
     @State private var amount = 0.0
+    @State private var date = Date()
     
     let types = ["Business", "Personal" ]
     
@@ -30,12 +31,16 @@ struct AddView: View {
                 
                 TextField("Amount", value: $amount, format: .currency (code: Locale.current.currency?.identifier ?? "USD"))
                     .keyboardType(.decimalPad)
+                
+                DatePicker(selection: $date, in: ...Date(), displayedComponents: .date) {
+                                Text("Select a date")
+                            }
             }
             .navigationTitle("Add New Expense")
             
             .toolbar {
                 Button("Save") {
-                    let item = ExpenseItem(name: name, type: type, amount: amount)
+                    let item = ExpenseItem(name: name, type: type, amount: amount, date: date)
                     expenses.items.append(item)
                     dismiss()
                 }

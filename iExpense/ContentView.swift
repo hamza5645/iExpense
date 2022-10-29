@@ -20,6 +20,8 @@ struct ContentView: View {
                             Text(item.name)
                                 .font(.headline)
                             Text(item.type)
+                            
+                            Text(date.formatted(date: .long, time: .omitted))
                         }
                         
                         Spacer()
